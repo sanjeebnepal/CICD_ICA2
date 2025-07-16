@@ -1,14 +1,14 @@
 FROM python:3.11-slim
 
-# Install Flask
-RUN pip install flask
+# Copy requirements first for caching
+COPY requirements.txt .
 
-# Copy app files
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy app and tests
 COPY main.py .
 COPY test_main.py .
 
-# Expose port 80
-EXPOSE 80
+EXPOSE 8080
 
-# Run the app
 CMD ["python", "main.py"]
