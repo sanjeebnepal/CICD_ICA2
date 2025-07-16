@@ -116,6 +116,6 @@ jobs:
         echo "App failed to become healthy."
         exit 1
 
-    - name: Run integration tests
+    - name: Run integration test
       run: |
         pytest tests/integration
