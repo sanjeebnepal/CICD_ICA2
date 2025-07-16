@@ -1,9 +1,14 @@
-# Dockerfile
-FROM python:3.10-slim
+FROM python:3.11-slim
 
-WORKDIR /app
-COPY . /app
+# Install Flask
+RUN pip install flask
 
-RUN pip install --no-cache-dir pytest
+# Copy app files
+COPY main.py .
+COPY test_main.py .
 
-CMD ["python3"]
+# Expose port 80
+EXPOSE 80
+
+# Run the app
+CMD ["python", "main.py"]
