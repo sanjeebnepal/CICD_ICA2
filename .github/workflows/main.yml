@@ -46,7 +46,8 @@ jobs:
       - name: Run unit tests
         run: |
           mkdir -p test-reports
-          pytest tests/test_unit.py --junitxml=test-reports/results.xml
+          python3 -m pytest tests/test_unit.py --junitxml=test-reports/results.xml
+
 
       - uses: actions/upload-artifact@v4
         with:
@@ -69,7 +70,8 @@ jobs:
       - name: Run unit tests
         run: |
           mkdir test-reports
-          pytest tests/test_unit.py --junitxml=test-reports/results.xml
+          python -m pytest tests/test_unit.py --junitxml=test-reports/results.xml
+
 
       - uses: actions/upload-artifact@v4
         with:
