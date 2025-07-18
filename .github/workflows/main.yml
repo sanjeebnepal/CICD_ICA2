@@ -38,16 +38,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install dependencies
-        run: |
-          python3 -m pip install --upgrade pip --break-system-packages
-          pip install -r requirements.txt --break-system-packages
+      - name: Install dependencies (Custom Action)
+        uses: ./.github/actions/install-deps
 
       - name: Run unit tests
         run: |
           mkdir -p test-reports
           python3 -m pytest tests/unit-test.py --junitxml=test-reports/results.xml
-
 
       - uses: actions/upload-artifact@v4
         with:
@@ -62,16 +59,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+      - name: Install dependencies (Custom Action)
+        uses: ./.github/actions/install-deps
 
       - name: Run unit tests
         run: |
           mkdir test-reports
           python -m pytest tests/unit-test.py --junitxml=test-reports/results.xml
-
 
       - uses: actions/upload-artifact@v4
         with:
@@ -88,11 +82,6 @@ jobs:
         image: ghcr.io/${{ github.repository_owner }}/custom-python-image-ica2:latest
         ports:
           - 8000:8080
-        # options: >-
-        #   --health-cmd="curl -f http://localhost:8080/health || exit 1"
-        #   --health-interval=10s
-        #   --health-timeout=5s
-        #   --health-retries=5
 
     steps:
       - uses: actions/checkout@v3
@@ -110,11 +99,9 @@ jobs:
           done
           echo "App failed to become healthy."
           exit 1
-      
-      - name: Install dependencies for integration tests
-        run: |
-          python3 -m pip install --upgrade pip
-          pip install -r requirements.txt
+
+      - name: Install dependencies (Custom Action)
+        uses: ./.github/actions/install-deps
 
       - name: Run integration tests
         run: |
