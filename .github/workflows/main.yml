@@ -38,7 +38,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install dependencies (Custom Action)
+      - name: Install dependencies
         uses: ./.github/actions/install-deps
 
       - name: Run unit tests
@@ -59,10 +59,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install dependencies (Custom Action)
+      - name: Install dependencies
         uses: ./.github/actions/install-deps
 
       - name: Run unit tests
+        shell: cmd
         run: |
           mkdir test-reports
           python -m pytest tests/unit-test.py --junitxml=test-reports/results.xml
@@ -99,8 +100,8 @@ jobs:
           done
           echo "App failed to become healthy."
           exit 1
-
-      - name: Install dependencies (Custom Action)
+      
+      - name: Install dependencies for integration tests
         uses: ./.github/actions/install-deps
 
       - name: Run integration tests
